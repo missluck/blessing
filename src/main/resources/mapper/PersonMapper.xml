@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.demo.blessing.mapper.PersonMapper">
+    <resultMap id="BaseResultMap" type="org.demo.blessing.model.Person">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="address" column="address"/>
+        <result property="phone" column="phone"/>
+        <result property="idCard" column="idcard"/>
+    </resultMap>
+    <select id="selectAllPerson" resultMap="BaseResultMap">
+        SELECT * FROM person
+    </select>
+</mapper>
