@@ -67,4 +67,9 @@ public class BlessTask {
     public void setCron(String cron) {
         this.cron = cron;
     }
+
+    @Override
+    public String toString() {
+        return "BlessTask{" + "id=" + id + ", blessContent='" + blessContent + '\'' + ", jobName='" + jobName + '\'' + ", jobGroupName='" + jobGroupName + '\'' + ", triggerName='" + triggerName + '\'' + ", triggerGroupName='" + triggerGroupName + '\'' + ", cron='" + cron + '\'' + '}';
+    }
 }

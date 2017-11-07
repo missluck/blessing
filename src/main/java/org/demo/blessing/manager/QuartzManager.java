@@ -24,15 +24,13 @@ public class QuartzManager {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             JobKey jobKey = new JobKey(jobName, jobGroupName);
             TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroupName);
-            System.out.println("job is boolean："+scheduler.checkExists(jobKey)+"\t"+"trigger is boolean："+scheduler.checkExists(triggerKey));
+            //System.out.println("job is boolean："+scheduler.checkExists(jobKey)+"\t"+"trigger is boolean："+scheduler.checkExists(triggerKey));
+            if (scheduler.checkExists(triggerKey)) return;
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
             // 表达式调度构建器
             CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cron);
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroupName).withSchedule(cronScheduleBuilder).build();
             scheduler.scheduleJob(jobDetail, trigger);
-            if(scheduler.isShutdown()) {
-                scheduler.start();
-            }
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
@@ -64,26 +62,12 @@ public class QuartzManager {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             JobKey jobKey = new JobKey(jobName, jobGroupName);
             TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroupName);
-            JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-            Class objClass = jobDetail.getJobClass();
-            removeJob(jobName, jobGroupName, triggerName, triggerGroupName);
-            addJob(jobName, triggerName, objClass, cron);
-
-            /*if(scheduler.checkExists(triggerKey)) {
-                // 方式一：调用rescheduleJob修改任务触发时间
-                //CronTrigger cronTrigger = (CronTrigger) scheduler.getTrigger(triggerKey);
-                //Trigger trigger = scheduler.getTrigger(triggerKey);
-                //CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cron);
-                //Trigger trigger = cronTrigger.getTriggerBuilder().withIdentity(triggerKey).withSchedule(cronScheduleBuilder).build();
-                //scheduler.rescheduleJob(triggerKey, trigger);
-                //scheduler.resumeTrigger(triggerKey);
-
-                // 方式二：先删除再创建一个新的Job
-                //JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-                //Class objClass = jobDetail.getJobClass();
-                //removeJob(jobName, jobGroupName, triggerName, triggerGroupName);
-                //addJob(jobName, triggerName, objClass, cron);
-            }*/
+            if (scheduler.checkExists(jobKey)&&scheduler.checkExists(triggerKey)) {
+                JobDetail jobDetail = scheduler.getJobDetail(jobKey);
+                Class objClass = jobDetail.getJobClass();
+                removeJob(jobName, jobGroupName, triggerName, triggerGroupName);
+                addJob(jobName, triggerName, objClass, cron);
+            }
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
