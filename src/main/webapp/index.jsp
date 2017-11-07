@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+    <a href="./pages/addPerson.jsp">添加人员</a><br>
 </body>
 </html>

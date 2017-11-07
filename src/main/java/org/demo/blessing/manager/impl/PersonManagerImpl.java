@@ -23,4 +23,10 @@ public class PersonManagerImpl implements PersonManager {
     public List<Person> selectAllPerson() {
         return personMapper.selectAllPerson();
     }
+
+    @Override
+    public void addPerson(Person person) {
+
+    }
+
 }

@@ -11,4 +11,6 @@ public interface PersonManager {
 
     List<Person> selectAllPerson();
 
+    void addPerson(Person person);
+
 }
