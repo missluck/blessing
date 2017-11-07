@@ -22,6 +22,9 @@ public class QuartzManager {
     public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass, String cron) {
         try {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
+            JobKey jobKey = new JobKey(jobName, jobGroupName);
+            TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroupName);
+            System.out.println("job is boolean："+scheduler.checkExists(jobKey)+"\t"+"trigger is boolean："+scheduler.checkExists(triggerKey));
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
             // 表达式调度构建器
             CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cron);

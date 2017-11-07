@@ -12,7 +12,7 @@
 
     <bean name="quartzScheduler" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
         <property name="dataSource" ref="quartzDataSource"/>
-        <property name="configLocation" value="classpath:dev/quartz.properties"/>
+        <property name="configLocation" value="classpath:develop/quartz.properties"/>
         <!-- 设置自动启动 -->
         <property name="autoStartup" value="true"/>
         <!-- 每台集群机器部署应用的时候会更新触发器 -->

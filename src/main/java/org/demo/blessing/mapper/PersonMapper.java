@@ -9,6 +9,12 @@ import java.util.List;
  */
 public interface PersonMapper {
 
+    int insertPerson(Person person);
+
     List<Person> selectAllPerson();
+
+    Person selectPersonById(Integer id);
+
+    int updatePerson(Person person);
 
 }

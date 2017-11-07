@@ -9,8 +9,12 @@ import java.util.List;
  */
 public interface PersonManager {
 
-    List<Person> selectAllPerson();
-
     void addPerson(Person person);
+
+    List<Person> findAllPerson();
+
+    Person findPersonById(Integer id);
+
+    void modifyPerson(Person person);
 
 }

@@ -10,7 +10,26 @@
         <result property="phone" column="phone"/>
         <result property="idCard" column="idcard"/>
     </resultMap>
+    <insert id="insertPerson" parameterType="org.demo.blessing.model.Person">
+        INSERT INTO person(id, name, sex, age, address, phone, idCard)
+        VALUES (NULL , #{name}, #{sex}, #{age}, #{address}, #{phone}, #{idCard})
+    </insert>
     <select id="selectAllPerson" resultMap="BaseResultMap">
         SELECT * FROM person
     </select>
+    <select id="selectPersonById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM person
+        WHERE id = #{id}
+    </select>
+    <update id="updatePerson" parameterType="org.demo.blessing.model.Person">
+        UPDATE person
+        SET name = #{name},
+            sex = #{sex},
+            age = #{age},
+            address = #{address},
+            phone = #{phone},
+            idcard = #{idCard}
+        WHERE id = #{id}
+    </update>
+
 </mapper>

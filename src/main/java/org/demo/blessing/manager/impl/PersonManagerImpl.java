@@ -20,13 +20,23 @@ public class PersonManagerImpl implements PersonManager {
     private PersonMapper personMapper;
 
     @Override
-    public List<Person> selectAllPerson() {
+    public void addPerson(Person person) {
+        personMapper.insertPerson(person);
+    }
+
+    @Override
+    public List<Person> findAllPerson() {
         return personMapper.selectAllPerson();
     }
 
     @Override
-    public void addPerson(Person person) {
+    public Person findPersonById(Integer id) {
+        return personMapper.selectPersonById(id);
+    }
 
+    @Override
+    public void modifyPerson(Person person) {
+        personMapper.updatePerson(person);
     }
 
 }
