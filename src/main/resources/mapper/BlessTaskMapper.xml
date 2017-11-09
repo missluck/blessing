@@ -9,7 +9,12 @@
         <result property="triggerName" column="griggername"/>
         <result property="triggerGroupName" column="triggergroupname"/>
         <result property="cron" column="cron"/>
+        <result property="personId" column="personid"/>
     </resultMap>
+    <insert id="insertBlessTask" parameterType="org.demo.blessing.model.BlessTask">
+        INSERT INTO blesstask(id, blesscontent, jobname, jobgroupname, triggername, triggergroupname, cron, personid)
+        VALUES(NULL, #{blesscontent}, #{jobname}, #{jobgroupname}, #{triggername}, #{triggergroupname}, #{cron}, #{personid})
+    </insert>
     <select id="selectAllBlessTask" resultMap="BaseResultMap">
         SELECT * FROM blesstask
     </select>

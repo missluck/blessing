@@ -1,6 +1,7 @@
 package org.demo.blessing.task;
 
 import org.quartz.Job;
+import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -15,6 +16,12 @@ public class MyTask implements Job {
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis()))+"Say Hello World!");
+        JobDataMap dataMap = jobExecutionContext.getJobDetail().getJobDataMap();
+        String[] params = (String[]) dataMap.get("params");
+
+        System.out.println(params[0]);
+        System.out.println(params[1]);
+
     }
 
 }

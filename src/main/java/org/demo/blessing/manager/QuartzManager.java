@@ -15,11 +15,11 @@ public class QuartzManager {
     private static String DEFAULT_JOBGROUP_NAME = "DEFAULT_JOBGROUP_NAME";
     private static String DEFAULT_TRIGGERGROUP_NAME = "DEFAULT_TRIGGERGROUP_NAME";
 
-    public void addJob(String jobName, String triggerName, Class jobClass, String cron) {
-        addJob(jobName, DEFAULT_JOBGROUP_NAME, triggerName, DEFAULT_TRIGGERGROUP_NAME, jobClass, cron);
+    public void addJob(String jobName, String triggerName, Class jobClass, String cron, String... params) {
+        addJob(jobName, DEFAULT_JOBGROUP_NAME, triggerName, DEFAULT_TRIGGERGROUP_NAME, jobClass, cron, params);
     }
 
-    public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass, String cron) {
+    public void addJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass, String cron, String... params) {
         try {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             JobKey jobKey = new JobKey(jobName, jobGroupName);
@@ -27,6 +27,8 @@ public class QuartzManager {
             //System.out.println("job is boolean："+scheduler.checkExists(jobKey)+"\t"+"trigger is boolean："+scheduler.checkExists(triggerKey));
             if (scheduler.checkExists(triggerKey)) return;
             JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(jobName, jobGroupName).build();
+            JobDataMap dataMap = jobDetail.getJobDataMap();
+            dataMap.put("params", params);
             // 表达式调度构建器
             CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(cron);
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(triggerName, triggerGroupName).withSchedule(cronScheduleBuilder).build();

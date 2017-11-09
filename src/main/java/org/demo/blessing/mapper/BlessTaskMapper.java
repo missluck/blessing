@@ -11,4 +11,6 @@ public interface BlessTaskMapper {
 
     List<BlessTask> selectAllBlessTask();
 
+    int insertBlessTask(BlessTask blessTask);
+
 }

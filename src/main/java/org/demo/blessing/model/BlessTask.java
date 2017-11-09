@@ -11,6 +11,7 @@ public class BlessTask {
     private String triggerName;
     private String triggerGroupName;
     private String cron;
+    private Integer personId;
 
     public Integer getId() {
         return id;
@@ -68,8 +69,16 @@ public class BlessTask {
         this.cron = cron;
     }
 
+    public Integer getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(Integer personId) {
+        this.personId = personId;
+    }
+
     @Override
     public String toString() {
-        return "BlessTask{" + "id=" + id + ", blessContent='" + blessContent + '\'' + ", jobName='" + jobName + '\'' + ", jobGroupName='" + jobGroupName + '\'' + ", triggerName='" + triggerName + '\'' + ", triggerGroupName='" + triggerGroupName + '\'' + ", cron='" + cron + '\'' + '}';
+        return "BlessTask{" + "id=" + id + ", blessContent='" + blessContent + '\'' + ", jobName='" + jobName + '\'' + ", jobGroupName='" + jobGroupName + '\'' + ", triggerName='" + triggerName + '\'' + ", triggerGroupName='" + triggerGroupName + '\'' + ", cron='" + cron + '\'' + ", personId=" + personId + '}';
     }
 }

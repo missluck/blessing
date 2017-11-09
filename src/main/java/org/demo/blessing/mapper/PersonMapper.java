@@ -17,4 +17,6 @@ public interface PersonMapper {
 
     int updatePerson(Person person);
 
+    String selectPhoneByPersonid(Integer personid);
+
 }

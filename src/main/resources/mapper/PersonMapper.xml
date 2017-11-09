@@ -31,5 +31,9 @@
             idcard = #{idCard}
         WHERE id = #{id}
     </update>
+    <select id="selectPhoneByPersonid" parameterType="java.lang.Integer" resultType="java.lang.String">
+        SELECT phone FROM person
+        WHERE id = #{personid}
+    </select>
 
 </mapper>
