@@ -13,10 +13,25 @@
     </resultMap>
     <insert id="insertBlessTask" parameterType="org.demo.blessing.model.BlessTask">
         INSERT INTO blesstask(id, blesscontent, jobname, jobgroupname, triggername, triggergroupname, cron, personid)
-        VALUES(NULL, #{blesscontent}, #{jobname}, #{jobgroupname}, #{triggername}, #{triggergroupname}, #{cron}, #{personid})
+        VALUES(NULL, #{blessContent}, #{jobName}, #{jobGroupName}, #{triggerName}, #{triggerGroupName}, #{cron}, #{personId})
     </insert>
     <select id="selectAllBlessTask" resultMap="BaseResultMap">
         SELECT * FROM blesstask
     </select>
+    <select id="selectBlessTaskById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        SELECT * FROM blesstask
+        WHERE id = #{id}
+    </select>
+    <update id="updateBlessTask" parameterType="org.demo.blessing.model.BlessTask">
+        UPDATE blesstask
+        SET blesscontent = #{blessContent},
+            cron = #{cron},
+            personid = #{personId}
+        WHERE id = #{id}
+    </update>
+    <delete id="deleteBlessTask" parameterType="java.lang.Integer">
+        DELETE FROM blesstask
+        WHERE id = #{id}
+    </delete>
 
 </mapper>

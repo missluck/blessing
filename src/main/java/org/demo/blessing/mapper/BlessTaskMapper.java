@@ -13,4 +13,10 @@ public interface BlessTaskMapper {
 
     int insertBlessTask(BlessTask blessTask);
 
+    BlessTask selectBlessTaskById(Integer id);
+
+    int updateBlessTask(BlessTask blessTask);
+
+    int deleteBlessTask(Integer id);
+
 }

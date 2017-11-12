@@ -18,9 +18,9 @@ public class MyTask implements Job {
         System.out.println(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(System.currentTimeMillis()))+"Say Hello World!");
         JobDataMap dataMap = jobExecutionContext.getJobDetail().getJobDataMap();
         String[] params = (String[]) dataMap.get("params");
-
-        System.out.println(params[0]);
-        System.out.println(params[1]);
+        for (int i=0; i<params.length; i++) {
+            System.out.println(params[i]);
+        }
 
     }
 

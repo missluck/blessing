@@ -46,29 +46,33 @@ public class QuartzManager {
         try {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroupName);
-            scheduler.pauseTrigger(triggerKey);
-            scheduler.unscheduleJob(triggerKey);
             JobKey jobKey = new JobKey(jobName, jobGroupName);
-            scheduler.deleteJob(jobKey);
+            if (scheduler.checkExists(triggerKey)) {
+                scheduler.pauseTrigger(triggerKey);
+                scheduler.unscheduleJob(triggerKey);
+            }
+            if (scheduler.checkExists(jobKey)) {
+                scheduler.deleteJob(jobKey);
+            }
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
     }
 
-    public void modifyJobCron(String jobName, String triggerName, String cron) {
-        modifyJobCron(jobName, DEFAULT_JOBGROUP_NAME, triggerName, DEFAULT_TRIGGERGROUP_NAME, cron);
+    public void modifyJob(String jobName, String triggerName, Class jobClass, String cron, String... params) {
+        modifyJob(jobName, DEFAULT_JOBGROUP_NAME, triggerName, DEFAULT_TRIGGERGROUP_NAME, jobClass, cron, params);
     }
 
-    public void modifyJobCron(String jobName, String jobGroupName, String triggerName, String triggerGroupName, String cron) {
+    public void modifyJob(String jobName, String jobGroupName, String triggerName, String triggerGroupName, Class jobClass,String cron, String... params) {
         try {
             Scheduler scheduler = schedulerFactoryBean.getScheduler();
             JobKey jobKey = new JobKey(jobName, jobGroupName);
             TriggerKey triggerKey = new TriggerKey(triggerName, triggerGroupName);
             if (scheduler.checkExists(jobKey)&&scheduler.checkExists(triggerKey)) {
-                JobDetail jobDetail = scheduler.getJobDetail(jobKey);
-                Class objClass = jobDetail.getJobClass();
                 removeJob(jobName, jobGroupName, triggerName, triggerGroupName);
-                addJob(jobName, triggerName, objClass, cron);
+                addJob(jobName, triggerName, jobClass, cron, params);
+            } else {
+                addJob(jobName, triggerName, jobClass, cron, params);
             }
         } catch (SchedulerException e) {
             e.printStackTrace();

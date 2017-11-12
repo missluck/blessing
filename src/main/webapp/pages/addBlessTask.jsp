@@ -27,27 +27,27 @@
             </tr>
             <tr>
                 <td><span>祝福语：</span></td>
-                <td><input type="text" name="blessContent" placeholder=""></td>
+                <td><input type="text" name="blessContent" ></td>
             </tr>
             <tr>
                 <td><span>任务名：</span></td>
-                <td><input type="text" name="jobName" placeholder="最好为英文" value="testJobName"></td>
+                <td><input type="text" name="jobName" placeholder="最好为英文" ></td>
             </tr>
             <tr>
                 <td><span>任务分组名：</span></td>
-                <td><input type="text" name="jobGroupName" placeholder="可以为空"></td>
+                <td><input type="text" name="jobGroupName" placeholder="可以为空" ></td>
             </tr>
             <tr>
                 <td><span>触发器名：</span></td>
-                <td><input type="text" name="triggerName" placeholder="最好为英文" value="testTriggerName"></td>
+                <td><input type="text" name="triggerName" placeholder="最好为英文" ></td>
             </tr>
             <tr>
                 <td><span>触发器分组名：</span></td>
-                <td><input type="text" name="triggerGroupName" placeholder="可以为空"></td>
+                <td><input type="text" name="triggerGroupName" placeholder="可以为空" ></td>
             </tr>
             <tr>
                 <td>选择触发时间：</td>
-                <td><input type="datetime-local" id="dateInput" ><div id="message"></div></td>
+                <td><input type="datetime-local" id="dateInput" ></td>
             </tr>
             <tr>
                 <td><span>cron表达式：</span></td>

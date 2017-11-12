@@ -16,4 +16,10 @@ public interface BlessTaskManager {
 
     List<BlessTask> findAllBlessTask();
 
+    BlessTask findBlessTaskById(Integer id);
+
+    void modifyBlessTask(BlessTask blessTask);
+
+    void removeBlessTask(Integer id);
+
 }

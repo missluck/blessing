@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -64,12 +61,33 @@ public class BlessTaskController {
     }
 
     @RequestMapping(value = "/findAllBlessTask", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public String findAllBlessTask() {
+    public String findAllBlessTask(Model model) {
         List<BlessTask> blessTasks = blessTaskManager.findAllBlessTask();
-        for (BlessTask bt:blessTasks) {
-            System.out.println(bt.toString());
-        }
+        model.addAttribute("blessTasks", blessTasks);
         return "allBlessTask";
+    }
+
+    @RequestMapping(value = "/modifyBlessTaskBefore/{id}")
+    public String modifyBlessTaskBefore(Model model, @PathVariable Integer id) {
+        BlessTask blessTask = blessTaskManager.findBlessTaskById(id);
+        List<Person> persons = personManager.findAllPerson();
+        model.addAttribute("blessTask",blessTask);
+        model.addAttribute("persons", persons);
+        return "modifyBlessTask";
+    }
+
+    @RequestMapping(value = "/modifyBlessTask", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String modifyBlessTask(BlessTask blessTask) {
+        blessTaskManager.modifyBlessTask(blessTask);
+        return "success";
+    }
+
+    @RequestMapping(value = "/removeBlessTask/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String removeBlessTask(@PathVariable Integer id) {
+        blessTaskManager.removeBlessTask(id);
+        return "success";
     }
 
 }

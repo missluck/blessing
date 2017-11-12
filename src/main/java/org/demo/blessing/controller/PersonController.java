@@ -2,15 +2,13 @@ package org.demo.blessing.controller;
 
 import org.demo.blessing.manager.PersonManager;
 import org.demo.blessing.model.Person;
+import org.demo.blessing.util.IDCardUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,6 +50,21 @@ public class PersonController {
         System.out.println(person.toString());
         personManager.modifyPerson(person);
         return "success";
+    }
+
+    @RequestMapping(value = "/getPersonInfoByIdcard", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public String getPersonInfoByIdcard(@RequestBody String idCard) {
+        boolean flag = IDCardUtil.checkIdCard(idCard);
+        String sex = null;
+        String address = null;
+        int age = 0;
+        if (flag) {
+            sex = IDCardUtil.parseSex(idCard);
+            age = IDCardUtil.parseAge(idCard);
+            address = IDCardUtil.parseAddress(idCard);
+        }
+        return "{'sex':'"+sex+"','age':'"+age+"','address':'"+address+"'}";
     }
 
 }

@@ -14,6 +14,7 @@
     <a href="./pages/addPerson.jsp">添加人员</a><br>
     <a href="/findAllPerson">查看所有人</a><br>
     <a href="/addBlessTaskBefore">添加定时任务</a><br>
+    <a href="/findAllBlessTask">查看所有任务</a>
 
 </body>
 </html>
